@@ -1,4 +1,5 @@
 var http = require("http");
+var { home } = require("./router/home");
 var { sendFile } = require("./app");
 
 var me = { name: "jura", age: 22 };
@@ -8,7 +9,7 @@ var routing = {
   "/user": () => me,
   "/user/age": () => me.age,
   "/user/name": () => me.name,
-  "/user/*": (client, par) => sendFile(client, par),
+  "/user/*": (client, par) => home(client, par),
 };
 
 var types = {
@@ -47,7 +48,7 @@ var router = async (client) => {
     }
   }
   var renderer = types[typeof route];
-  console.log(renderer);
+
   return renderer(route, par, client);
 };
 
