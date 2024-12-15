@@ -1,6 +1,6 @@
 var http = require("http");
 var { home } = require("./router/home");
-var { sendFile } = require("./app");
+var { addMethods } = require("./router/services/resMethods");
 
 var me = { name: "jura", age: 22 };
 
@@ -54,6 +54,8 @@ var router = async (client) => {
 
 http
   .createServer(async (req, res) => {
-    (await router({ req, res })) + "";
+    res = await addMethods(res);
+
+    await router({ req, res });
   })
   .listen(8000, "127.0.0.1", console.log("server run"));

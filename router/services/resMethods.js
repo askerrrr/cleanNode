@@ -1,15 +1,19 @@
-var fs = require("node:fs");
+var { readFile } = require("node:fs");
 
-var sendFile = async (path) => {
+var sendFile = async (res, path) => {
   res.writeHead(200, {
     "Content-Type": "text/html",
   });
 
-  fs.readFile(path, (e, file) => {
+  readFile(path, (e, file) => {
     if (e) throw e;
 
     res.end(file);
   });
 };
 
-var addMethods = async (res) => {};
+module.exports.addMethods = async (res) => {
+  res.sendFile = sendFile.bind(null, res);
+
+  return res;
+};
