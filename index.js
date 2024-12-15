@@ -5,11 +5,11 @@ var { addMethods } = require("./router/services/resMethods");
 var me = { name: "jura", age: 22 };
 
 var routing = {
-  "/": "welcome to homepage",
+  "/*": (client, par) => home(client, par),
   "/user": () => me,
   "/user/age": () => me.age,
   "/user/name": () => me.name,
-  "/user/*": (client, par) => home(client, par),
+  //"/user/*": (client, par) => home(client, par),
 };
 
 var types = {
